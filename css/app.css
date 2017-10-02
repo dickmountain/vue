@@ -1,1 +1,23 @@
-.task--done{ color:green; font-weight:800; }
+body, button, input{ font-family:proxima-nova,"Helvetica Neue",Helvetica,Arial,sans-s }
+#app{ margin:20em auto; width:40em; }
+.task{ margin:2em 0; padding:2em; border:#ccc solid 1px; border-radius:2em; }
+
+.task .remove{ color:red; float:right; margin-top:-1.5em; display:none; }
+.task:hover .remove{ display:block; opacity:0.5; }
+.task .remove:hover{ opacity:1; }
+
+.task .done{ color:green; }
+.task .undone{ color:blue; }
+
+.task--done span{ color:green; font-weight:800; }
+
+form input{ padding:1em; border:#ccc solid 1px; width:33em; font-size:14px; }
+form button{ 
+    padding:1em; width:9em; border-radius:2em; border:#ff5722 solid 1px;
+    background-color:#ff5722; color:#fff; cursor:pointer; font-size:14px;
+    margin-left:1em;
+}
+
+.task .done:hover,
+.task .undone:hover,
+form button:hover{ opacity:0.8; }

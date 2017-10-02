@@ -5,9 +5,9 @@ let Task = {
     props:['task'],
     template:`
         <div class="task" :class="{ 'task--done':task.done }">
-            {{ task.body }} 
-            <a href="#" @click.prevent="toggleDone(task.id)">Mark as {{ task.done?'not done':'done' }}</a>
-            <a href="#" @click.prevent="deleteTask(task.id)">Delete</a>
+            <span>{{ task.body }}</span> 
+            <a href="#" :class="{done:!task.done, undone:task.done}" @click.prevent="toggleDone(task.id)"><i class="fa fa-check" aria-hidden="true"></i></a>
+            <a href="#" class="remove" @click.prevent="deleteTask(task.id)"><i class="fa fa-remove" aria-hidden="true"></i></a>
         </div>
     `,
     methods:{
@@ -20,9 +20,38 @@ let Task = {
     }
 }
 
+let TaskForm = {
+    data(){
+        return {
+            body:''
+        }
+    },
+    template:`
+        <form action="#" @submit.prevent="addTask">
+            <input type="text" v-model.trim="body">
+            <button>Add task</button>
+        </form> 
+    `,
+    methods:{
+        addTask(){
+            if(!this.body){
+                return
+            }
+            this.$emit('task:added', {
+                id:Date.now(),
+                body:this.body,
+                done:false
+            })
+            
+            this.body = '';
+        }
+    }
+}
+
 let Tasks = {
     components:{
-        task:Task
+        'task':Task,
+        'task-form':TaskForm
     },
     data(){
         return {
@@ -40,6 +69,7 @@ let Tasks = {
                 </template>
                 <span v-else>No tasks</span>
             </div>
+            <task-form v-on:task:added="addTask"></task-form>
         </div>        
     `,
     methods:{
@@ -55,7 +85,10 @@ let Tasks = {
             this.tasks = this.tasks.filter((task) => {
                return task.id !== taskId
             })
-        } 
+        },
+        addTask(task){
+            this.tasks.unshift(task);
+        }
     },
     mounted(){
         bus.$on('task:toggleDone', (taskId) => {
