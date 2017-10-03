@@ -11,7 +11,7 @@ body, button, input{ font-family:proxima-nova,"Helvetica Neue",Helvetica,Arial,s
 
 .task--done span{ color:green; font-weight:800; }
 
-form input{ padding:1em; border:#ccc solid 1px; width:33em; font-size:14px; }
+form input{ padding:1em; border:#ccc solid 1px; width:33em; font-size:14px; outline:none; }
 form button{ 
     padding:1em; width:9em; border-radius:2em; border:#ff5722 solid 1px;
     background-color:#ff5722; color:#fff; cursor:pointer; font-size:14px;
